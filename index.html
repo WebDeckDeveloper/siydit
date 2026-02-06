@@ -2,19 +2,134 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Valentine Gate</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Valentine Gate 💘</title>
+
+  <!-- Pretty font -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;1,600&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Playfair Display', serif;
+    }
+
+    body {
+      height: 100vh;
+      background: linear-gradient(135deg, #ff758c, #ff7eb3);
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* Floating hearts */
+    .heart {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: rgba(255, 255, 255, 0.6);
+      transform: rotate(45deg);
+      animation: float 8s linear infinite;
+    }
+
+    .heart::before,
+    .heart::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: rgba(255, 255, 255, 0.6);
+      border-radius: 50%;
+    }
+
+    .heart::before {
+      top: -10px;
+      left: 0;
+    }
+
+    .heart::after {
+      left: -10px;
+      top: 0;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(100vh) rotate(45deg);
+        opacity: 0;
+      }
+      20% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-10vh) rotate(45deg);
+        opacity: 0;
+      }
+    }
+
+    /* Center card */
+    .container {
+      background: rgba(255, 255, 255, 0.25);
+      backdrop-filter: blur(12px);
+      padding: 45px;
+      border-radius: 22px;
+      text-align: center;
+      box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+      z-index: 2;
+    }
+
+    h1 {
+      color: #fff;
+      font-size: 32px;
+      margin-bottom: 25px;
+    }
+
+    input {
+      width: 280px;
+      padding: 14px;
+      border-radius: 30px;
+      border: none;
+      outline: none;
+      text-align: center;
+      font-size: 16px;
+      margin-bottom: 25px;
+    }
+
+    button {
+      padding: 14px 45px;
+      border-radius: 35px;
+      border: none;
+      background: #ff2f68;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    button:hover {
+      background: #ff0f4a;
+      transform: scale(1.07);
+    }
+  </style>
 </head>
 <body>
 
+  <!-- Floating hearts -->
+  <div class="heart" style="left: 10%; animation-delay: 0s;"></div>
+  <div class="heart" style="left: 25%; animation-delay: 2s;"></div>
+  <div class="heart" style="left: 40%; animation-delay: 4s;"></div>
+  <div class="heart" style="left: 60%; animation-delay: 1s;"></div>
+  <div class="heart" style="left: 75%; animation-delay: 3s;"></div>
+  <div class="heart" style="left: 90%; animation-delay: 5s;"></div>
+
+  <!-- Main content -->
   <div class="container">
     <h1>What is your name?</h1>
 
-    <input 
-      type="text" 
-      id="nameInput" 
-      placeholder="Enter your name"
-    >
+    <input type="text" id="nameInput" placeholder="Enter your name">
+
+    <br>
 
     <button onclick="checkName()">Continue</button>
   </div>
@@ -22,9 +137,7 @@
   <script>
     function checkName() {
       const input = document.getElementById("nameInput").value.trim().toLowerCase();
-      const correctName = "siyon gardner pandey";
-
-      if (input === correctName) {
+      if (input === "siyon gardner pandey") {
         window.location.href = "page2.html";
       } else {
         alert("Access denied 💔");
