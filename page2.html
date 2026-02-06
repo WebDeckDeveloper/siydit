@@ -55,11 +55,13 @@
     .container {
       background: rgba(255, 255, 255, 0.25);
       backdrop-filter: blur(12px);
-      padding: 50px;
+      padding: 50px 60px 70px;
       border-radius: 25px;
       text-align: center;
       box-shadow: 0 25px 50px rgba(0,0,0,0.2);
       z-index: 2;
+      width: 420px;
+      position: relative;
     }
 
     h1 {
@@ -68,30 +70,38 @@
       margin-bottom: 40px;
     }
 
+    .button-area {
+      position: relative;
+      height: 80px;
+    }
+
     button {
-      padding: 14px 45px;
+      padding: 14px 40px;
       border-radius: 35px;
       border: none;
       font-size: 16px;
       cursor: pointer;
-      transition: 0.2s ease;
+      transition: 0.25s ease;
+      position: absolute;
     }
 
     #yesBtn {
       background: #ff2f68;
       color: white;
-      margin-right: 20px;
+      left: 50%;
+      transform: translateX(-120%);
     }
 
     #yesBtn:hover {
       background: #ff0f4a;
-      transform: scale(1.07);
+      transform: translateX(-120%) scale(1.07);
     }
 
     #noBtn {
       background: white;
       color: #ff2f68;
-      position: absolute;
+      left: 50%;
+      transform: translateX(20%);
     }
   </style>
 </head>
@@ -107,39 +117,38 @@
 
   <div class="container">
     <h1>Will you be my Valentine?</h1>
-    <button id="yesBtn" onclick="goNext()">Yes 💖</button>
-    <button id="noBtn">No 💔</button>
+
+    <div class="button-area" id="area">
+      <button id="yesBtn" onclick="goNext()">Yes 💖</button>
+      <button id="noBtn">No 💔</button>
+    </div>
   </div>
 
   <script>
     const noBtn = document.getElementById("noBtn");
+    const area = document.getElementById("area");
 
-    // Initial random position
-    moveNoButton();
-
-    document.addEventListener("mousemove", (e) => {
+    area.addEventListener("mousemove", (e) => {
       const btnRect = noBtn.getBoundingClientRect();
+      const areaRect = area.getBoundingClientRect();
+
       const btnX = btnRect.left + btnRect.width / 2;
       const btnY = btnRect.top + btnRect.height / 2;
 
       const distance = Math.hypot(e.clientX - btnX, e.clientY - btnY);
 
-      if (distance < 120) {
-        moveNoButton();
+      if (distance < 80) {
+        const maxX = areaRect.width - btnRect.width;
+        const maxY = areaRect.height - btnRect.height;
+
+        const x = Math.random() * maxX;
+        const y = Math.random() * maxY;
+
+        noBtn.style.left = `${x}px`;
+        noBtn.style.top = `${y}px`;
+        noBtn.style.transform = "none";
       }
     });
-
-    function moveNoButton() {
-      const padding = 20;
-      const maxX = window.innerWidth - noBtn.offsetWidth - padding;
-      const maxY = window.innerHeight - noBtn.offsetHeight - padding;
-
-      const x = Math.random() * maxX;
-      const y = Math.random() * maxY;
-
-      noBtn.style.left = `${x}px`;
-      noBtn.style.top = `${y}px`;
-    }
 
     function goNext() {
       window.location.href = "page3.html";
