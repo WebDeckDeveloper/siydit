@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Valentine Gate</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="container">
+    <h1>What is your name?</h1>
+
+    <input 
+      type="text" 
+      id="nameInput" 
+      placeholder="Enter your name"
+    >
+
+    <button onclick="checkName()">Continue</button>
+  </div>
+
+  <script>
+    function checkName() {
+      const input = document.getElementById("nameInput").value.trim().toLowerCase();
+      const correctName = "siyon gardner pandey";
+
+      if (input === correctName) {
+        window.location.href = "page2.html";
+      } else {
+        alert("Access denied 💔");
+      }
+    }
+  </script>
+
+</body>
+</html>
