@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <title>Be My Valentine 💖</title>
 
-  <!-- Pretty font -->
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;1,600&display=swap" rel="stylesheet">
 
   <style>
@@ -44,26 +43,13 @@
       border-radius: 50%;
     }
 
-    .heart::before {
-      top: -10px;
-      left: 0;
-    }
-
-    .heart::after {
-      left: -10px;
-      top: 0;
-    }
+    .heart::before { top: -10px; left: 0; }
+    .heart::after { left: -10px; top: 0; }
 
     @keyframes float {
-      0% {
-        transform: translateY(100vh) rotate(45deg);
-        opacity: 0;
-      }
+      0% { transform: translateY(100vh) rotate(45deg); opacity: 0; }
       20% { opacity: 1; }
-      100% {
-        transform: translateY(-10vh) rotate(45deg);
-        opacity: 0;
-      }
+      100% { transform: translateY(-10vh) rotate(45deg); opacity: 0; }
     }
 
     .container {
@@ -79,12 +65,7 @@
     h1 {
       color: #fff;
       font-size: 36px;
-      margin-bottom: 35px;
-    }
-
-    .buttons {
-      position: relative;
-      height: 120px;
+      margin-bottom: 40px;
     }
 
     button {
@@ -93,27 +74,24 @@
       border: none;
       font-size: 16px;
       cursor: pointer;
-      transition: 0.3s ease;
-      position: absolute;
+      transition: 0.2s ease;
     }
 
     #yesBtn {
       background: #ff2f68;
       color: white;
-      left: 50%;
-      transform: translateX(-120%);
+      margin-right: 20px;
     }
 
     #yesBtn:hover {
       background: #ff0f4a;
-      transform: translateX(-120%) scale(1.07);
+      transform: scale(1.07);
     }
 
     #noBtn {
       background: white;
       color: #ff2f68;
-      left: 50%;
-      transform: translateX(20%);
+      position: absolute;
     }
   </style>
 </head>
@@ -129,22 +107,39 @@
 
   <div class="container">
     <h1>Will you be my Valentine?</h1>
-
-    <div class="buttons">
-      <button id="yesBtn" onclick="goNext()">Yes 💖</button>
-      <button id="noBtn">No 💔</button>
-    </div>
+    <button id="yesBtn" onclick="goNext()">Yes 💖</button>
+    <button id="noBtn">No 💔</button>
   </div>
 
   <script>
     const noBtn = document.getElementById("noBtn");
 
-    noBtn.addEventListener("mouseover", () => {
-      const x = Math.random() * 200 - 100;
-      const y = Math.random() * 80 - 40;
+    // Initial random position
+    moveNoButton();
 
-      noBtn.style.transform = `translate(${x}px, ${y}px)`;
+    document.addEventListener("mousemove", (e) => {
+      const btnRect = noBtn.getBoundingClientRect();
+      const btnX = btnRect.left + btnRect.width / 2;
+      const btnY = btnRect.top + btnRect.height / 2;
+
+      const distance = Math.hypot(e.clientX - btnX, e.clientY - btnY);
+
+      if (distance < 120) {
+        moveNoButton();
+      }
     });
+
+    function moveNoButton() {
+      const padding = 20;
+      const maxX = window.innerWidth - noBtn.offsetWidth - padding;
+      const maxY = window.innerHeight - noBtn.offsetHeight - padding;
+
+      const x = Math.random() * maxX;
+      const y = Math.random() * maxY;
+
+      noBtn.style.left = `${x}px`;
+      noBtn.style.top = `${y}px`;
+    }
 
     function goNext() {
       window.location.href = "page3.html";
